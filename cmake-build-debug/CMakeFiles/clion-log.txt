@@ -1,0 +1,5 @@
+/home/dwitek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/dwitek/Desktop/uczelnia/ivhd-cpu
+-- Found Boost: /usr/include (found version "1.65.1")  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/dwitek/Desktop/uczelnia/ivhd-cpu/cmake-build-debug

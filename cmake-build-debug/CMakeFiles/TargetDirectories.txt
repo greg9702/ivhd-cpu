@@ -1,0 +1,3 @@
+/home/dwitek/Desktop/uczelnia/ivhd-cpu/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/dwitek/Desktop/uczelnia/ivhd-cpu/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/dwitek/Desktop/uczelnia/ivhd-cpu/cmake-build-debug/CMakeFiles/ivhd-cpu.dir
