@@ -1,9 +1,12 @@
-#include "caster/caster_sgd.h"
+#include "caster/caster_adadelta.h"
+#include <algorithm>
 #include <cmath>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
-float2 CasterSGD::force(DistElem distance) {
+float2 CasterAdadelta::force(DistElem distance) {
     float2 posI = positions[distance.i];
     float2 posJ = positions[distance.j];
 
@@ -17,7 +20,7 @@ float2 CasterSGD::force(DistElem distance) {
     return {rv.x * energy, rv.y * energy};
 }
 
-void CasterSGD::simul_step_cpu() {
+void CasterAdadelta::simul_step_cpu() {
     // calculate forces
     for (auto &i : f) {
         i = {0, 0};
@@ -37,9 +40,18 @@ void CasterSGD::simul_step_cpu() {
         f[distance.j].y -= df.y;
     }
 
-    // update positions
+    // update velocities and positions
     for (int i = 0; i < positions.size(); i++) {
-        positions[i].x += f[i].x * learning_rate;
-        positions[i].y += f[i].y * learning_rate;
+        decGrad[i].x = decGrad[i].x * beta + (1.0 - beta) * f[i].x * f[i].x;
+        decGrad[i].y = decGrad[i].y * beta + (1.0 - beta) * f[i].y * f[i].y;
+
+        float deltax = f[i].x / sqrtf(epsilon + decGrad[i].x) * sqrtf(epsilon + decDelta[i].x);
+        float deltay = f[i].y / sqrtf(epsilon + decGrad[i].y) * sqrtf(epsilon + decDelta[i].y);
+
+        positions[i].x += deltax;
+        positions[i].y += deltay;
+
+        decDelta[i].x = decDelta[i].x * beta + (1.0 - beta) * deltax * deltax;
+        decDelta[i].y = decDelta[i].y * beta + (1.0 - beta) * deltay * deltay;
     }
 }

@@ -1,14 +1,26 @@
-//
-// Created by dwitek on 13.06.2020.
-//
+#pragma once
 
-#ifndef IVHD_CPU_CASTER_MOMENTUM_H
-#define IVHD_CPU_CASTER_MOMENTUM_H
+#include <vector>
+#include "caster/caster_cpu.h"
+#include "distance.h"
 
+using namespace std;
 
-class caster_momentum {
+class CasterMomentum : public CasterCPU {
+public:
+    CasterMomentum(int n, function<void(float)> onErr, function<void(vector<float2> &)> onPos)
+            : CasterCPU(n, onErr, onPos), f(n, {0, 0}), momentum(n, {0, 0}) {}
 
+    virtual void simul_step_cpu() override;
+
+protected:
+    vector<float2> f;
+    vector<float2> momentum;
+
+private:
+    float2 force(DistElem distance);
+
+    float learning_rate = 0.00001;
+    float momentum_rate = 0.9;
+    float w_random = 0.01;
 };
-
-
-#endif //IVHD_CPU_CASTER_MOMENTUM_H

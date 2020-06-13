@@ -8,8 +8,7 @@ using namespace std;
 
 class CasterSGD : public CasterCPU {
 public:
-    CasterSGD(int n, function<void(float)> onErr,
-              function<void(vector<float2> &)> onPos)
+    CasterSGD(int n, function<void(float)> onErr, function<void(vector<float2> &)> onPos)
             : CasterCPU(n, onErr, onPos), f(n, {0, 0}) {}
 
     virtual void simul_step_cpu() override;
@@ -21,4 +20,5 @@ private:
     float2 force(DistElem distance);
 
     float learning_rate = 0.0001;
+    float w_random = 0.01;
 };

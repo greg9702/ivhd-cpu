@@ -2,17 +2,14 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include "caster/caster_ab.h"
-#include "caster/caster_adadelta_async.h"
-#include "caster/caster_adadelta_sync.h"
+#include "caster/caster_momentum.h"
+#include "caster/caster_adadelta.h"
 #include "caster/caster_nesterov.h"
 #include "caster/caster_sgd.h"
 #include "data.h"
 
 using namespace std;
 using namespace std::chrono;
-
-#define HEAP_LIMIT 100000000
 
 string dataset_file;
 string knn_file;
@@ -42,16 +39,15 @@ void parseArg(int argc, char *argv[]) {
 
 Caster *getCaster(int n, function<void(float)> onError,
                   function<void(vector<float2> &)> onPos) {
-    if (algorithm_name == "ab") {
-        return new CasterAB(n, onError, onPos);
+
+    if (algorithm_name == "sgd") {
+        return new CasterSGD(n, onError, onPos);
+    } else if (algorithm_name == "momentum") {
+        return new CasterMomentum(n, onError, onPos);
     } else if (algorithm_name == "nesterov") {
         return new CasterNesterov(n, onError, onPos);
-    } else if (algorithm_name == "adadelta_sync") {
-        return new CasterAdadeltaAsync(n, onError, onPos);
-    } else if (algorithm_name == "adadelta_async") {
-        return new CasterAdadeltaAsync(n, onError, onPos);
-    } else if (algorithm_name == "sgd") {
-        return new CasterSGD(n, onError, onPos);
+    } else if (algorithm_name == "adadelta") {
+        return new CasterAdadelta(n, onError, onPos);
     } else {
         cerr << "Invalid algorithm_name. Expected one of: 'ab', 'cuda_ab', ";
         cerr << "'nesterov', 'cuda_nesterov', 'cuda_adadelta', 'cuda_adam'\n";

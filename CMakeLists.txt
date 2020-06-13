@@ -14,7 +14,7 @@ INCLUDE_DIRECTORIES(
 FILE(GLOB SOURCES "src/*.cpp" "src/caster/*.cpp")
 ADD_EXECUTABLE( ivhd-cpu 
     ${SOURCES}
-        src/caster/caster_sgd.h src/caster/caster_sgd.cpp)
+        src/caster/caster_sgd.h src/caster/caster_sgd.cpp src/caster/caster_momentum.cpp src/caster/caster_momentum.h)
 
 TARGET_LINK_LIBRARIES( ivhd-cpu
     ${Boost_LIBRARIES}
