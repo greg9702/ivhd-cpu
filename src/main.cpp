@@ -46,13 +46,13 @@ Caster* getCaster(int n, function<void(float)> onError,
   } else if (algorithm_name == "nesterov") {
     return new CasterNesterov(n, onError, onPos);
   } else if (algorithm_name == "adadelta_sync") {
-    return new CasterAdadeltaAsync(n, onError, onPos);
+    return new CasterAdadeltaSync(n, onError, onPos);
   } else if (algorithm_name == "adadelta_async") {
     return new CasterAdadeltaAsync(n, onError, onPos);
 
   } else {
-    cerr << "Invalid algorithm_name. Expected one of: 'ab', 'cuda_ab', ";
-    cerr << "'nesterov', 'cuda_nesterov', 'cuda_adadelta', 'cuda_adam'\n";
+    cerr << "Invalid algorithm_name. Expected one of: 'ab', ";
+    cerr << "'nesterov', 'adadelta_sync', 'adadelta_async'\n";
     exit(-1);
   }
 }
