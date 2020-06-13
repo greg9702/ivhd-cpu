@@ -1,0 +1,3 @@
+[submodule "dependencies/csv-parser"]
+	path = dependencies/csv-parser
+	url = https://github.com/AriaFallah/csv-parser.git
