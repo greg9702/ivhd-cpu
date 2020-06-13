@@ -12,7 +12,7 @@ INCLUDE_DIRECTORIES(
 )
 
 FILE(GLOB SOURCES "src/*.cpp" "src/caster/*.cpp")
-ADD_EXECUTABLE( ivhd-cpu
+ADD_EXECUTABLE( ivhd-cpu 
     ${SOURCES}
 )
 
