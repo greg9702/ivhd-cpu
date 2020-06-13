@@ -1,53 +1,25 @@
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import numpy as np
 import sys
 
+
+def legend_without_duplicate_labels(ax):
+    handles, labels = ax.get_legend_handles_labels()
+    unique = [(h, l) for i, (h, l) in enumerate(zip(handles, labels)) if l not in labels[:i]]
+    ax.legend(*zip(*unique), loc=4)
+
+
 x, y, labels = np.loadtxt(sys.argv[1], delimiter=' ', unpack=True)
 
-# plt.scatter(x,y, c=labels)
-# for i, txt in enumerate(labels):
-#     if i % 50 == 0:
-#         plt.annotate(str(txt), (x[i], y[i]))
-
 unique = list(set(labels))
-colors = [plt.cm.jet(float(i)/max(unique)) for i in unique]
+plt.figure(figsize=(16, 9))
+colors = cm.jet(np.linspace(0, 1, len(unique)))
 
-for i, u in enumerate(unique):
-    xi = [x[j] for j  in range(len(x)) if labels[j] == u]
-    yi = [y[j] for j  in range(len(x)) if labels[j] == u]
-    plt.scatter(xi, yi, c=colors[i], label=str(u), s=2)
-plt.legend()
-
-
-
-# auto annotations
-sums = {}
-freqs = {}
-
-for i in range(0, len(x)):
-    if labels[i] in freqs:
-        freqs[labels[i]] = freqs[labels[i]] + 1
-    else:
-        freqs[labels[i]] = 1
-
-    if (labels[i] in sums):
-        (ax, ay) = sums[labels[i]]
-        sums[labels[i]] = (x[i] + ax, y[i] + ay)
-    else:
-        sums[labels[i]] = (x[i], y[i])
-
-
-for i in range(0, len(unique)):
-    (avx, avy) = sums[unique[i]]
-    avx = avx / freqs[unique[i]]
-    avy = avy / freqs[unique[i]]
-
-    plt.annotate(unique[i],
-            [avx, avy],
-            horizontalalignment='center',
-            verticalalignment='center',
-            size=15, weight='bold',
-            color='white',
-            backgroundcolor=colors[i])
+for i, label in enumerate(unique):
+    xi = [x[j] for j in range(len(x)) if labels[j] == label]
+    yi = [y[j] for j in range(len(x)) if labels[j] == label]
+    plt.scatter(xi, yi, c=[colors[i]], label=str(label), alpha=0.7)
+legend_without_duplicate_labels(plt.gca())
 
 plt.show()
