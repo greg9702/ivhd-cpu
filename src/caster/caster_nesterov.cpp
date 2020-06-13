@@ -46,7 +46,7 @@ void CasterNesterov::simul_step_cpu() {
         f[distance.j].y -= df.y;
     }
 
-    // update velocities and positions
+    // update positions
     for (int i = 0; i < positions.size(); i++) {
         velocity[i].x = (momentum_rate * velocity[i].x) + (learning_rate * f[i].x);
         velocity[i].y = (momentum_rate * velocity[i].y) + (learning_rate * f[i].y);

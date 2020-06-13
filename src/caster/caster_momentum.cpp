@@ -37,7 +37,7 @@ void CasterMomentum::simul_step_cpu() {
         f[distance.j].y -= df.y;
     }
 
-    // update momentum and positions
+    // update positions
     for (int i = 0; i < positions.size(); i++) {
         momentum[i].x = (momentum_rate * momentum[i].x) + (learning_rate * f[i].x);
         momentum[i].y = (momentum_rate * momentum[i].y) + (learning_rate * f[i].y);

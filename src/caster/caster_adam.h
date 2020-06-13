@@ -4,25 +4,28 @@
 
 using namespace std;
 
-class CasterAdadelta : public CasterCPU {
+class CasterAdam : public CasterCPU {
 public:
-    CasterAdadelta(int n, function<void(float)> onErr, function<void(vector<float2> &)> onPos)
+    CasterAdam(int n, function<void(float)> onErr, function<void(vector<float2> &)> onPos)
             : CasterCPU(n, onErr, onPos),
               f(n, {0, 0}),
               decGrad(n, {0, 0}),
-              decDelta(n, {0, 0}) {}
+              decSquaredGrad(n, {0, 0}) {}
 
     virtual void simul_step_cpu() override;
 
 protected:
     vector<float2> f;
     vector<float2> decGrad;
-    vector<float2> decDelta;
+    vector<float2> decSquaredGrad;
 
 private:
     float2 force(DistElem distance);
 
+    float epoch = 1;
     float epsilon = 0.00000001;
-    float beta = 0.9;
+    float learning_rate = 0.001;
+    float beta1 = 0.9;
+    float beta2 = 0.999;
     float w_random = 0.01;
 };

@@ -5,6 +5,7 @@
 #include "caster/caster_momentum.h"
 #include "caster/caster_adadelta.h"
 #include "caster/caster_nesterov.h"
+#include "caster/caster_adam.h"
 #include "caster/caster_sgd.h"
 #include "data.h"
 
@@ -48,9 +49,11 @@ Caster *getCaster(int n, function<void(float)> onError,
         return new CasterNesterov(n, onError, onPos);
     } else if (algorithm_name == "adadelta") {
         return new CasterAdadelta(n, onError, onPos);
+    } else if (algorithm_name == "adam") {
+        return new CasterAdam(n, onError, onPos);
     } else {
-        cerr << "Invalid algorithm_name. Expected one of: 'ab', 'cuda_ab', ";
-        cerr << "'nesterov', 'cuda_nesterov', 'cuda_adadelta', 'cuda_adam'\n";
+        cerr << "Invalid algorithm_name. Expected one of: 'sgd', 'momentum', ";
+        cerr << "'nesterov', 'adadelta', 'adam', 'cuda_adam'\n";
         exit(-1);
     }
 }

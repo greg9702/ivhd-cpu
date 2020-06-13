@@ -40,7 +40,7 @@ void CasterAdadelta::simul_step_cpu() {
         f[distance.j].y -= df.y;
     }
 
-    // update velocities and positions
+    // update positions
     for (int i = 0; i < positions.size(); i++) {
         decGrad[i].x = decGrad[i].x * beta + (1.0 - beta) * f[i].x * f[i].x;
         decGrad[i].y = decGrad[i].y * beta + (1.0 - beta) * f[i].y * f[i].y;
