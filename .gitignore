@@ -1,3 +1,6 @@
 build
 Data
 Data/*
+data
+.idea
+cmake-build-debug
