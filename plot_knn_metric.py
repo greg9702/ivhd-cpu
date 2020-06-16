@@ -15,5 +15,5 @@ ax = plt.gca()
 for index, value in enumerate(k_50):
     ax.text(index - 0.4, value / 2, str(round(value, 6)), color='black', fontweight='bold')
 plt.title('knn metric for different optimization algorithms, k=50')
-plt.savefig("knn_metric_k_50", bbox_inches='tight')
+# plt.savefig("knn_metric_k_50", bbox_inches='tight')
 plt.show()

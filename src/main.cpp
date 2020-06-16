@@ -19,12 +19,13 @@ string algorithm_name;
 
 unsigned iterations;
 unsigned seed;
+unsigned neighbours;
 unsigned random_neighbours;
 
 void parseArg(int argc, char *argv[]) {
-    if (argc != 8) {
-        cerr << "Expected 7 arguments:\n";
-        cerr << "./ivhd dataset_file knn_file iterations random_neighbours experiment_name "
+    if (argc != 9) {
+        cerr << "Expected 8 arguments:\n";
+        cerr << "./ivhd dataset_file knn_file iterations neighbours random_neighbours experiment_name "
                 "algorithm_name seed\n";
         exit(-1);
     }
@@ -32,10 +33,11 @@ void parseArg(int argc, char *argv[]) {
     dataset_file = argv[1];
     knn_file = argv[2];
     iterations = stoi(argv[3]);
-    random_neighbours = stoi(argv[4]);
-    experiment_name = argv[5];
-    algorithm_name = argv[6];
-    seed = stoi(argv[7]);
+    neighbours = stoi(argv[4]);
+    random_neighbours = stoi(argv[5]);
+    experiment_name = argv[6];
+    algorithm_name = argv[7];
+    seed = stoi(argv[8]);
 }
 
 Caster *getCaster(int n, function<void(float)> onError,
@@ -53,7 +55,7 @@ Caster *getCaster(int n, function<void(float)> onError,
         return new CasterAdam(n, onError, onPos);
     } else {
         cerr << "Invalid algorithm_name. Expected one of: 'sgd', 'momentum', ";
-        cerr << "'nesterov', 'adadelta', 'adam', 'cuda_adam'\n";
+        cerr << "'nesterov', 'adadelta', 'adam'\n";
         exit(-1);
     }
 }
@@ -103,7 +105,7 @@ int main(int argc, char *argv[]) {
     Caster *casterPtr = getCaster(n, onError, onPos);
     Caster &caster = *casterPtr;
 
-    data.generateNearestDistances(caster, n, knn_file);
+    data.generateNearestDistances(caster, n, knn_file, neighbours);
     data.generateRandomDistances(caster, n, random_neighbours);
     for (int i = 0; i < n; i++) {
         caster.positions[i].x = rand() % 100000 / 100000.0;

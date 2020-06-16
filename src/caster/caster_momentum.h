@@ -20,7 +20,7 @@ protected:
 private:
     float2 force(DistElem distance);
 
-    float learning_rate = 0.00001;
+    float learning_rate = 0.01;
     float momentum_rate = 0.9;
     float w_random = 0.01;
 };

@@ -18,5 +18,5 @@ while i < len(sys.argv) - 1:
 
 plt.ylabel("Error")
 plt.xlabel("Time")
-plt.savefig(sys.argv[2], bbox_inches='tight')
+# plt.savefig(sys.argv[2], bbox_inches='tight')
 plt.show()
