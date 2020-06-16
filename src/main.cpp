@@ -118,8 +118,15 @@ int main(int argc, char *argv[]) {
     start = time_point_cast<milliseconds>(now).time_since_epoch().count();
 
     for (unsigned i = 0; i < iterations; i++) {
-        if (i % 50 == 0) {
+        if (i % 100 == 0) {
             cout << i << endl;
+            ofstream results;
+            results.open(experiment_name + "_result_" + std::to_string(i));
+            for (int j = 0; j < n; j++) {
+                results << caster.positions[j].x << " " << caster.positions[j].y << " "
+                        << data.labels[j] << endl;
+            }
+            results.close();
         }
         caster.simul_step();
     }
