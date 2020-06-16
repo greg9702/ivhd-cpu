@@ -22,5 +22,5 @@ for i, label in enumerate(unique):
     plt.scatter(xi, yi, c=[colors[i]], label=str(label), alpha=0.7)
 legend_without_duplicate_labels(plt.gca())
 
-# plt.savefig(sys.argv[2], bbox_inches='tight')
+plt.savefig(sys.argv[2], bbox_inches='tight')
 plt.show()

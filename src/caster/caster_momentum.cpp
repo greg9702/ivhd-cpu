@@ -1,5 +1,6 @@
 #include "caster/caster_momentum.h"
 #include <cmath>
+#include "caster/constants.h"
 
 using namespace std;
 

@@ -1,8 +1,6 @@
 #include "caster/caster_adadelta.h"
-#include <algorithm>
 #include <cmath>
-#include <cstring>
-#include <iostream>
+#include "caster/constants.h"
 
 using namespace std;
 

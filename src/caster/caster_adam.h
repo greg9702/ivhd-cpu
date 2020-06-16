@@ -24,8 +24,6 @@ private:
 
     float epoch = 1;
     float epsilon = 0.00000001;
-    float learning_rate = 0.001;
     float beta1 = 0.9;
     float beta2 = 0.999;
-    float w_random = 0.01;
 };

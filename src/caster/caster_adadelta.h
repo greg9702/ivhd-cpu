@@ -24,5 +24,4 @@ private:
 
     float epsilon = 0.00000001;
     float beta = 0.9;
-    float w_random = 0.01;
 };

@@ -18,7 +18,4 @@ protected:
 
 private:
     float2 force(DistElem distance);
-
-    float learning_rate = 0.0001;
-    float w_random = 0.01;
 };

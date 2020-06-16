@@ -1,5 +1,6 @@
 #include "caster/caster_sgd.h"
 #include <cmath>
+#include "caster/constants.h"
 
 using namespace std;
 
